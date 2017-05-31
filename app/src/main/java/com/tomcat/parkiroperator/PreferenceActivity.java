@@ -8,10 +8,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.tomcat.parkiroperator.DB.DB;
+import com.tomcat.parkiroperator.Object.Parkir;
 import com.tomcat.parkiroperator.Object.User;
 
+import static com.tomcat.parkiroperator.R.id.btnSetAvailable;
+import static com.tomcat.parkiroperator.R.id.inputAvailable;
+
 public class PreferenceActivity extends AppCompatActivity {
+
+    private DB db;
+    private User user;
+    private Parkir parkir;
+
+    private EditText inputCapacity;
+    private Button btnSetCapacity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,19 +45,39 @@ public class PreferenceActivity extends AppCompatActivity {
                 logout();
             }
         });
-//
-//
-//        Button btnRequestParkir = (Button) findViewById(R.id.btnRequestParkir);
-//        btnRequestParkir.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(), RequestParkirActivity.class);
-//                startActivity(i);
-//            }
-//        });
+
+        user = new User(this);
+        db = new DB(this,user);
+        parkir = db.getParkir();
+        setView();
+
+        btnSetCapacity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setCapacity();
+            }
+        });
+    }
+
+    public void setView(){
+        inputCapacity = (EditText) findViewById(R.id.inputCapacity);
+        btnSetCapacity = (Button) findViewById(R.id.btnSetCapacity);
+
+        inputCapacity.setText(String.valueOf(parkir.getCapacity()));
+    }
+    public void setCapacity(){
+        int newAvailable=Integer.parseInt(inputCapacity.getText().toString());
+        int lastAvailable = parkir.getAvailable();
+
+        parkir.setAvailable(newAvailable);
+
+        if(!db.setAvailable(parkir)){
+            parkir.setAvailable(lastAvailable);
+            inputCapacity.setText(String.valueOf(lastAvailable));
+            Toast.makeText(getApplicationContext(), getString(R.string.signal1), Toast.LENGTH_SHORT).show();
+        }
     }
     public void logout(){
-        User user = new User(this);
         if(!user.deleteAuth())
             return;
 
@@ -49,6 +85,7 @@ public class PreferenceActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

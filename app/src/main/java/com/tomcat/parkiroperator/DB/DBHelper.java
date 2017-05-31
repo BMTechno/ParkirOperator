@@ -53,6 +53,15 @@ public class DBHelper {
         params.add(new BasicNameValuePair("password", password));
         return send(params);
     }
+    public int setCapacity(int parkirId, int available){
+        List<NameValuePair> params=new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("action", "setCapacity"));
+        params.add(new BasicNameValuePair("id", id));
+        params.add(new BasicNameValuePair("parkir_id", ""+parkirId));
+        params.add(new BasicNameValuePair("capacity", ""+available));
+        params.add(new BasicNameValuePair("password", password));
+        return send(params);
+    }
     /*
     public int getDetailParkir(String parkirId){
         List<NameValuePair> params=new ArrayList<NameValuePair>();

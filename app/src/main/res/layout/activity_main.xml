@@ -48,6 +48,7 @@
                 android:layout_marginLeft="50dp"
                 android:ems="10"
                 android:inputType="textPersonName|numberDecimal"
+                android:maxLines="1"
                 android:textAlignment="textEnd" />
 
             <TextView
@@ -69,11 +70,12 @@
                 android:text="capacity" />
 
         </RelativeLayout>
+
         <Button
             android:id="@+id/btnSetAvailable"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="SET"
+            android:text="SET MANUAL"
             android:textSize="10sp" />
 
         <RelativeLayout

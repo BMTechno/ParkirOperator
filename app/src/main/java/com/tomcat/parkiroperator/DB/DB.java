@@ -60,6 +60,13 @@ public class DB {
         }
         return false;
     }
+    public boolean setCapacity(Parkir parkir){
+        int signal=dbH.setCapacity(parkir.getId(), parkir.getCapacity());
+        if (signal==0){
+            return true;
+        }
+        return false;
+    }
     public boolean login(){
         int signal=dbH.login(user.getUsername(),user.getPassword());
         if (signal==0){
