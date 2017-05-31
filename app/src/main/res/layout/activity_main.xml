@@ -27,12 +27,20 @@
         >
 
         <TextView
+            android:id="@+id/txtParkirName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Parkir Name" />
+
+        <TextView
+            android:id="@+id/txtParkirAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Parkir Address" />
+        <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:text="Available:" />
 
         <RelativeLayout

@@ -1,5 +1,6 @@
 package com.tomcat.parkiroperator;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,14 +35,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.title_main);
-
         user = new User(this);
         db = new DB(this,user);
         parkir = db.getParkir();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        String title = getText(R.string.title_main)+" "+parkir.getName();
+        getSupportActionBar().setTitle(title);
+
         setView();
 
         btnSetAvailable.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
 
         inputAvailable.setText(String.valueOf(parkir.getAvailable()));
         txtCapacity.setText(String.valueOf(parkir.getCapacity()));
+        TextView txtParkirName = (TextView)findViewById(R.id.txtParkirName);
+        TextView txtParkirAddress = (TextView)findViewById(R.id.txtParkirAddress);
+        txtParkirName.setText(parkir.getName());
+        txtParkirAddress.setText(parkir.getAddress());
     }
     public void setAvailable(){
         int newAvailable=Integer.parseInt(inputAvailable.getText().toString());
@@ -132,11 +138,26 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent i = new Intent(getApplicationContext(), PreferenceActivity.class);
-            startActivity(i);
+            startActivityForResult(i,1);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                int capacity = data.getIntExtra("capacity", 0);
+//                Log.d("listFragment bool",String.valueOf(isParkirSaved));
+                parkir.setCapacity(capacity);
+                txtCapacity.setText(String.valueOf(capacity));
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 
 }

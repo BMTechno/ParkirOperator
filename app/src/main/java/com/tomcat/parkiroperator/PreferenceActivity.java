@@ -1,5 +1,6 @@
 package com.tomcat.parkiroperator;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -66,15 +67,20 @@ public class PreferenceActivity extends AppCompatActivity {
         inputCapacity.setText(String.valueOf(parkir.getCapacity()));
     }
     public void setCapacity(){
-        int newAvailable=Integer.parseInt(inputCapacity.getText().toString());
-        int lastAvailable = parkir.getAvailable();
+        int newCapacity=Integer.parseInt(inputCapacity.getText().toString());
+        int lastCapacity = parkir.getAvailable();
 
-        parkir.setAvailable(newAvailable);
+        parkir.setCapacity(newCapacity);
 
-        if(!db.setAvailable(parkir)){
-            parkir.setAvailable(lastAvailable);
-            inputCapacity.setText(String.valueOf(lastAvailable));
+        if(!db.setCapacity(parkir)){
+            parkir.setAvailable(lastCapacity);
+            inputCapacity.setText(String.valueOf(lastCapacity));
             Toast.makeText(getApplicationContext(), getString(R.string.signal1), Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("capacity", parkir.getCapacity());
+            setResult(Activity.RESULT_OK, returnIntent);
         }
     }
     public void logout(){
