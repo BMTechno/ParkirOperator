@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tomcat.parkiroperator.MainActivity">
+    tools:context="com.tomcat.parkiroperator.MainActivity"
+    android:weightSum="1"
+    android:background="@color/putih">
 
 
         <android.support.design.widget.AppBarLayout
@@ -19,39 +21,46 @@
             </include>
         </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layoutHead1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/txtParkirName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Parkir Name" />
+            android:text="Parkir Name"
+            android:layout_marginTop="20dp"/>
 
         <TextView
             android:id="@+id/txtParkirAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Parkir Address" />
+            android:text="Parkir Address"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/txtParkirName"/>
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Available:" />
+            android:text="Available:"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/txtParkirAddress"/>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            >
+            android:layout_marginTop="130dp"
+            android:layout_marginLeft="-10dp"
+            android:id="@+id/relativeLayout2">
 
             <EditText
                 android:id="@+id/inputAvailable"
-                android:layout_width="191dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:ems="10"
@@ -63,10 +72,10 @@
                 android:id="@+id/textSlash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/inputAvailable"
-                android:layout_toEndOf="@+id/inputAvailable"
                 android:layout_centerVertical="true"
-                android:text="/"/>
+                android:layout_toEndOf="@+id/inputAvailable"
+                android:layout_toRightOf="@+id/inputAvailable"
+                android:text="/" />
 
             <TextView
                 android:id="@+id/txtCapacity"
@@ -76,35 +85,52 @@
                 android:layout_toEndOf="@+id/textSlash"
                 android:layout_toRightOf="@+id/textSlash"
                 android:text="capacity" />
+            <Button
+            android:id="@+id/btnSetAvailable"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="SET MANUAL"
+            android:textSize="10sp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/txtCapacity"
+                android:layout_toEndOf="@+id/txtCapacity"
+                android:layout_marginLeft="29dp"
+                android:layout_marginStart="29dp" />
 
         </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="111dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.29">
 
         <Button
-            android:id="@+id/btnSetAvailable"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="SET MANUAL"
-            android:textSize="10sp" />
+            android:id="@+id/btnParkirIn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/round_button"
+            android:text="Car In"
+            android:textColor="@color/putih"
+            android:layout_above="@+id/btnParkirOut"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-
-            <Button
-                android:id="@+id/btnParkirIn"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:text="Car In" />
-
-            <Button
-                android:id="@+id/btnParkirOut"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentRight="true"
-                android:text="Car Out" />
-        </RelativeLayout>
-    </LinearLayout>
+        <Button
+            android:id="@+id/btnParkirOut"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/round_buttonm"
+            android:text="Car Out"
+            android:textColor="@color/putih"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/btnParkirIn"
+            android:layout_alignStart="@+id/btnParkirIn" />
+    </RelativeLayout>
 
 
 </LinearLayout>
